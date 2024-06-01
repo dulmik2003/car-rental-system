@@ -6,9 +6,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database: postgresql
-#    database-platform: org.hibernate.dialect.PostgresSLDialect
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: localhost
     port: 1025
@@ -25,8 +25,15 @@ spring:
         timeout: 3000
         writetimeout: 5000
 
+server:
+  port: 8088
+
 application:
   security:
     jwt:
       secret-key: 454f524d58567251787a366b356e65706d534d3453347552566855756b466273
       expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activae-account
+
