@@ -1,6 +1,7 @@
-package com.cypsoLabs.car_rental_sev.entity;
+package com.cypsoLabs.car_rental_sev.role;
 
-import com.cypsoLabs.car_rental_sev.entity.User;
+import com.cypsoLabs.car_rental_sev.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,5 +24,6 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private List<User> users;
 }

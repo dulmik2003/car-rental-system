@@ -1,4 +1,4 @@
-package com.cypsoLabs.car_rental_sev.dto;
+package com.cypsoLabs.car_rental_sev.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

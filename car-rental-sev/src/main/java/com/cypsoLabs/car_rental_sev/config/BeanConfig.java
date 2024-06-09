@@ -1,6 +1,6 @@
 package com.cypsoLabs.car_rental_sev.config;
 
-import com.cypsoLabs.car_rental_sev.repository.UserRepository;
+import com.cypsoLabs.car_rental_sev.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

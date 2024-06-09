@@ -1,6 +1,6 @@
-package com.cypsoLabs.car_rental_sev.entity;
+package com.cypsoLabs.car_rental_sev.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.cypsoLabs.car_rental_sev.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -36,12 +35,11 @@ public class User implements UserDetails, Principal {
     private String password;
     private String firstName;
     private String lastName;
-//    private LocalDate dateOfBirth;
+    //    private LocalDate dateOfBirth;
     private boolean accountLocked;
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
 //    @JoinTable(
 //            name = "user_role",
 //            joinColumns = @JoinColumn(name = "user_id"),

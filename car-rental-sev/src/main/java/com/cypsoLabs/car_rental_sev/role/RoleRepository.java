@@ -1,6 +1,5 @@
-package com.cypsoLabs.car_rental_sev.repository;
+package com.cypsoLabs.car_rental_sev.role;
 
-import com.cypsoLabs.car_rental_sev.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

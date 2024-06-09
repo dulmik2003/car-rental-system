@@ -47,3 +47,15 @@ Ycar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/dto/AuthenticationRes
 \car-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/handler/GlobalExeptionHandler.java,2\9\296b0a5061506dce216cb1eb12c6b3b4a1720c6d
 d
 4car-rental-sev/.mvn/wrapper/maven-wrapper.properties,b\f\bfba73a177f5f2e9870b3fa8fbf2fca550d384b1
+â
+Ycar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/auth/AuthenticationService.java,2\8\2874377fd16fb70f6c82b07ddc7e21278856f269
+x
+Hcar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/role/Role.java,e\8\e8f7ae6e292ffbf038a2a125d25d9442fa029a7a
+y
+Icar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/user/Token.java,8\9\899dcfa254da70c0fbb35f21600f62039d731684
+x
+Hcar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/user/User.java,3\5\35d28f8c5e1bfe08e0ae1c0a92ccb4eec02781a1
+Ü
+Vcar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/email/EmailTemplateName.java,6\d\6d34ab644fe07bd691485e3ff8f75b75c3deaa16
+Å
+Qcar-rental-sev/src/main/java/com/cypsoLabs/car_rental_sev/email/EmailService.java,4\1\41ae8295179592b2f22c6e4721f6bd15a9824034

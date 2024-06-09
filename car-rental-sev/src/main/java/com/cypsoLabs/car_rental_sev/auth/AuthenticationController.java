@@ -1,9 +1,5 @@
-package com.cypsoLabs.car_rental_sev.controller;
+package com.cypsoLabs.car_rental_sev.auth;
 
-import com.cypsoLabs.car_rental_sev.dto.AuthenticationRequest;
-import com.cypsoLabs.car_rental_sev.dto.AuthenticationResponse;
-import com.cypsoLabs.car_rental_sev.dto.RegisterRequest;
-import com.cypsoLabs.car_rental_sev.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.cypsoLabs.car_rental_sev.entity;
+package com.cypsoLabs.car_rental_sev.user;
 
 import jakarta.persistence.*;
 import lombok.*;

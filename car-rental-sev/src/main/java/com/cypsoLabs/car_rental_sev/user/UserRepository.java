@@ -1,6 +1,5 @@
-package com.cypsoLabs.car_rental_sev.repository;
+package com.cypsoLabs.car_rental_sev.user;
 
-import com.cypsoLabs.car_rental_sev.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

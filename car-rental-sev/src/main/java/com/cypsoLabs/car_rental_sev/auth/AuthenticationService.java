@@ -1,17 +1,14 @@
-package com.cypsoLabs.car_rental_sev.service;
+package com.cypsoLabs.car_rental_sev.auth;
 
-import com.cypsoLabs.car_rental_sev.dto.AuthenticationRequest;
-import com.cypsoLabs.car_rental_sev.dto.AuthenticationResponse;
-import com.cypsoLabs.car_rental_sev.dto.RegisterRequest;
-import com.cypsoLabs.car_rental_sev.entity.Role;
-import com.cypsoLabs.car_rental_sev.entity.Token;
-import com.cypsoLabs.car_rental_sev.entity.User;
-import com.cypsoLabs.car_rental_sev.repository.RoleRepository;
-import com.cypsoLabs.car_rental_sev.repository.TokenRepository;
-import com.cypsoLabs.car_rental_sev.repository.UserRepository;
+import com.cypsoLabs.car_rental_sev.email.EmailService;
+import com.cypsoLabs.car_rental_sev.role.Role;
+import com.cypsoLabs.car_rental_sev.role.RoleRepository;
 import com.cypsoLabs.car_rental_sev.security.JwtService;
+import com.cypsoLabs.car_rental_sev.user.Token;
+import com.cypsoLabs.car_rental_sev.user.TokenRepository;
+import com.cypsoLabs.car_rental_sev.user.User;
+import com.cypsoLabs.car_rental_sev.user.UserRepository;
 import jakarta.mail.MessagingException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.cypsoLabs.car_rental_sev.service.EmailTemplateName.ACTIVATE_ACCOUNT;
+import static com.cypsoLabs.car_rental_sev.email.EmailTemplateName.ACTIVATE_ACCOUNT;
 
 @Service
 @RequiredArgsConstructor
@@ -108,7 +105,7 @@ public class AuthenticationService {
             int randomIndex = secureRandom.nextInt(characters.length());
             codeBuilder.append(characters.charAt(randomIndex));
         }
-            return codeBuilder.toString();
+        return codeBuilder.toString();
     }
 
 

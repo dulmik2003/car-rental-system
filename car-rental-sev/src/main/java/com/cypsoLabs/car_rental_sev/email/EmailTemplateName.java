@@ -1,10 +1,9 @@
-package com.cypsoLabs.car_rental_sev.service;
+package com.cypsoLabs.car_rental_sev.email;
 
 import lombok.Getter;
 
 @Getter
 public enum EmailTemplateName {
-//    ACTIVATE_ACCOUNT();
     ACTIVATE_ACCOUNT("activate_account");
 
     private final String name;

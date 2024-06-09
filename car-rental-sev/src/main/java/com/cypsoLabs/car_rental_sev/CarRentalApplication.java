@@ -1,7 +1,7 @@
 package com.cypsoLabs.car_rental_sev;
 
-import com.cypsoLabs.car_rental_sev.entity.Role;
-import com.cypsoLabs.car_rental_sev.repository.RoleRepository;
+import com.cypsoLabs.car_rental_sev.role.Role;
+import com.cypsoLabs.car_rental_sev.role.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
