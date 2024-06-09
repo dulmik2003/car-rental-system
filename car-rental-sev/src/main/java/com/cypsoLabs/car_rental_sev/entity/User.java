@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(unique = true)
@@ -36,15 +36,20 @@ public class User implements UserDetails, Principal {
     private String password;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
+//    private LocalDate dateOfBirth;
     private boolean accountLocked;
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
+//    @JoinTable(
+//            name = "user_role",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
     private List<Role> roles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
     @CreatedDate

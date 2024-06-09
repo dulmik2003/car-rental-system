@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+
 import java.util.HashMap;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -23,7 +24,7 @@ public class EmailService {
     @Async
     public void sendEmail(
             String to,
-            String username,
+            String fullUsername,
             EmailTemplateName emailTemplate,
             String confirmationUrl,
             String activationCode,
@@ -32,7 +33,7 @@ public class EmailService {
         String templateName;
 
         if (emailTemplate == null) {
-                templateName = "confirm-email";
+            templateName = "confirm-email";
         } else {
             templateName = emailTemplate.name();
         }
@@ -46,7 +47,7 @@ public class EmailService {
         );
 
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("username", username);
+        properties.put("fullName", fullUsername);
         properties.put("confirmationUrl", confirmationUrl);
         properties.put("activationCode", activationCode);
 

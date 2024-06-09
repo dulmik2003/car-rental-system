@@ -1,5 +1,7 @@
 package com.cypsoLabs.car_rental_sev.service;
 
+import com.cypsoLabs.car_rental_sev.dto.AuthenticationRequest;
+import com.cypsoLabs.car_rental_sev.dto.AuthenticationResponse;
 import com.cypsoLabs.car_rental_sev.dto.RegisterRequest;
 import com.cypsoLabs.car_rental_sev.entity.Role;
 import com.cypsoLabs.car_rental_sev.entity.Token;
@@ -7,15 +9,24 @@ import com.cypsoLabs.car_rental_sev.entity.User;
 import com.cypsoLabs.car_rental_sev.repository.RoleRepository;
 import com.cypsoLabs.car_rental_sev.repository.TokenRepository;
 import com.cypsoLabs.car_rental_sev.repository.UserRepository;
+import com.cypsoLabs.car_rental_sev.security.JwtService;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+
+import static com.cypsoLabs.car_rental_sev.service.EmailTemplateName.ACTIVATE_ACCOUNT;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +36,15 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authManager;
+    private final JwtService jwtService;
 
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
 
+
+    //todo
+    // register a user
     public void register(RegisterRequest request) throws MessagingException {
         Role userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new IllegalStateException("Role USER was not initialized"));
@@ -47,19 +63,25 @@ public class AuthenticationService {
         sendValidationEmail(user);
     }
 
+
+    //todo
+    // send the validation email
     private void sendValidationEmail(User user) throws MessagingException {
         String newToken = generateAndSaveActivationToken(user);
 
         emailService.sendEmail(
                 user.getEmail(),
                 user.getFullName(),
-                EmailTemplateName.ACTIVATE_ACCOUNT,
+                ACTIVATE_ACCOUNT,
                 activationUrl,
                 newToken,
                 "Account activation"
         );
     }
 
+
+    //todo
+    // generate and save the activation token
     private String generateAndSaveActivationToken(User user) {
         String generatedToken = generateActivationToken(6);
 
@@ -74,6 +96,9 @@ public class AuthenticationService {
         return generatedToken;
     }
 
+
+    //todo
+    // generate the activation token
     private String generateActivationToken(int length) {
         String characters = "0123456789";
         StringBuilder codeBuilder = new StringBuilder();
@@ -83,6 +108,63 @@ public class AuthenticationService {
             int randomIndex = secureRandom.nextInt(characters.length());
             codeBuilder.append(characters.charAt(randomIndex));
         }
-        return codeBuilder.toString();
+            return codeBuilder.toString();
+    }
+
+
+    //todo
+    // authenticate a user
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        Authentication authentication = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+
+        User authenticatedUser = (User) authentication.getPrincipal();
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("fullName", authenticatedUser.getFullName());
+
+        String generatedToken = jwtService.generateToken(claims, authenticatedUser);
+        return AuthenticationResponse.builder()
+                .token(generatedToken)
+                .build();
+    }
+
+
+    //todo
+    // activate a user account
+    public void activateAccount(String token) throws MessagingException {
+        Token savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Invalid token"));
+
+        //todo
+        // resend a validation email to the same user
+        // if activation token has been expired
+        if (isTokenExpired(savedToken)) {
+            sendValidationEmail(savedToken.getUser());
+            throw new RuntimeException(
+                    "Activation token has been expired. A new token has been sent to the same email address"
+            );
+        }
+
+        User user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setEnabled(true);
+        userRepository.save(user);
+
+        //todo
+        // set validated time for activation token
+        // and save that token to the database
+        savedToken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedToken);
+    }
+
+
+    //todo
+    // check if activation token has been expired or not
+    private boolean isTokenExpired(Token token) {
+        return LocalDateTime.now().isAfter(token.getExpiredAt());
     }
 }
