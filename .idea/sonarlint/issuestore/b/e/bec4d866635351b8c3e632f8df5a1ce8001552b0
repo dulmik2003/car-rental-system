@@ -1,6 +1,0 @@
-
-~	java:S125'"<This block of commented-out lines of code should be removed.(°åğÌ8§í—ÿ1J$bab2d0f6-4e4f-475b-b573-7b1553e8ae3f
-½
-java:S6204I"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ª™¨¹8¬í—ÿ1J$80e7e53b-35d5-4757-a28b-292057be49d7
-x
-java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ8±í—ÿ1J$a6f91082-8995-4bb0-a382-1bf516b694a5
